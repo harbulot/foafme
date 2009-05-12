@@ -28,7 +28,7 @@ if ($sigalg == "rsa-sha1") {
 	 * Loads the trusted certificate of the IdP: its public key is used to 
 	 * verify the integrity of the signed assertion.
 	 */
-	$fp = fopen("idpcert.pem", "r");
+	$fp = fopen("foafssl.org-cert.pem", "r");
 	$cert = fread($fp, 8192);
 	fclose($fp);
 	
@@ -128,7 +128,7 @@ if ($sigalg == "rsa-sha1") {
 	<div class="tab">
 		<ul class="login">
 	    	<li class="left">&nbsp;</li>
-	        <li><? print $webid ? "<a href=index.php>Logout: $webid</a>" : "<a href=https://foafssl.org/srv/insecureLogin?return_to=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI] />Login With Secure Web ID</a>" ?></li>
+	        <li><? print $webid ? "<a href=index.php>Logout: $webid</a>" : "<a href=https://foafssl.org/srv/idp?authreqissuer=http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI] />Login With Secure Web ID</a>" ?></li>
 			<li class="sep">|</li>
 			<li id="toggle">
 				<a id="open" class="open" href="#"> New Users</a>
