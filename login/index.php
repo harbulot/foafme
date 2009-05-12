@@ -3,6 +3,14 @@
 <?php
 
 /*
+ * Settings for the IdP. The following two variables may change with
+ * another IdP.
+ */
+
+$sigalg = "rsa-sha1";
+$idp_certificate = "foafssl.org-cert.pem";
+
+/*
  * Verifies the WebID 
  */
 
@@ -19,16 +27,13 @@ $signed_info = substr($full_uri, 0, -5-strlen(urlencode($_GET["sig"])));
 /* Extracts the signature */
 $signature = base64_decode($_GET["sig"]);
 
-/* Extracts the signature algorithm */
-$sigalg = $_GET["sigalg"];
-
 /* Only rsa-sha1 is supported at the moment. */
 if ($sigalg == "rsa-sha1") {
 	/* 
 	 * Loads the trusted certificate of the IdP: its public key is used to 
 	 * verify the integrity of the signed assertion.
 	 */
-	$fp = fopen("foafssl.org-cert.pem", "r");
+	$fp = fopen($idp_certificate, "r");
 	$cert = fread($fp, 8192);
 	fclose($fp);
 	
